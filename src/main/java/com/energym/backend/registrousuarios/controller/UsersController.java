@@ -2,6 +2,9 @@ package com.energym.backend.registrousuarios.controller;
 
 import com.energym.backend.registrousuarios.model.Users;
 import com.energym.backend.registrousuarios.service.UsersService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,11 @@ public class UsersController {
     @Autowired
     public UsersService service;
 
+    @Operation(summary = "Agrega un nuevo registro en la tabla users")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "El usuario creado"),
+            @ApiResponse(responseCode = "406", description = "Null cuando se produce algún error")
+    })
     @PostMapping(value = "/user")
     public ResponseEntity<Users> newUser(@RequestBody Users user){
         try {
@@ -32,6 +40,11 @@ public class UsersController {
         }
     }
 
+    @Operation(summary = "Busca en la tabla users el usuario que coincida con el email pasado como parámetro")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "El usuario que coincida con el criterio de búsqueda"),
+            @ApiResponse(responseCode = "404", description = "Null cuando el usuario no se encuentra")
+    })
     @GetMapping("/user/email/")
     public ResponseEntity<Users> findUserByEmail(@RequestParam String email){
         try{
@@ -44,6 +57,11 @@ public class UsersController {
         }
     }
 
+    @Operation(summary = "Busca en la tabla users el usuario que coincida con el id pasado como parámetro")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "El usuario que coincida con el criterio de búsqueda"),
+            @ApiResponse(responseCode = "404", description = "Null cuando el usuario no se encuentra")
+    })
     @GetMapping("/user/id/")
     public ResponseEntity<Users> findUserById(@RequestParam Integer id){
         Optional<Users> found = service.findUserById(id);
@@ -57,23 +75,37 @@ public class UsersController {
         }
     }
 
+    @Operation(summary = "Lista de todos los usuarios almacenados en la base de datos")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de usuarios"),
+    })
     @GetMapping("/user/")
     public ResponseEntity<List<Users>> getUsers(){
         return ResponseEntity.ok(service.getUsers());
     }
 
+    @Operation(summary = "Busca el usuario que coincida con el email y el password que llegan en el body del request")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "El usuario que coincida con los criterios de búsqueda"),
+            @ApiResponse(responseCode = "404", description = "Null cuando el usuario no se encuentra"),
+    })
     @GetMapping(value = "/login")
     public ResponseEntity<Users> login(@RequestBody Users user){
         try{
             Users found = service.login(user.getEmail(), user.getPassword());
             log.info("Usuario found: Nombre - " + found.getName());
-            return new ResponseEntity<>(found, HttpStatus.FOUND);
+            return new ResponseEntity<>(found, HttpStatus.OK);
         }catch(Exception ex){
             log.error("Usuario no encontrado");
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 
+    @Operation(summary = "Actualiza la información de un usuario")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "El usuario actualizado"),
+            @ApiResponse(responseCode = "409", description = "Null cuando no se actualiza el usuario"),
+    })
     @PutMapping(value = "/user/")
     public ResponseEntity<Users> updateUser(@RequestBody Users user){
         try{
@@ -86,6 +118,11 @@ public class UsersController {
         }
     }
 
+    @Operation(summary = "Actualiza el password de un usuario")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "El usuario actualizado"),
+            @ApiResponse(responseCode = "409", description = "Null cuando no se actualiza el usuario"),
+    })
     @PutMapping(value = "/user/update_password/")
     public ResponseEntity<Users> updatePassword(@RequestBody Users user){
         try{

@@ -24,4 +24,10 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         String body = "El formato del id no es válido, debe ser un número entero";
         return handleExceptionInternal(ex, body, new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
+
+    @ExceptionHandler(value = EncryptException.class)
+    public ResponseEntity<Object> handlerEncryptException(RuntimeException ex, WebRequest request){
+        String body = "Error en la encriptación del password";
+        return handleExceptionInternal(ex, body, new HttpHeaders(), HttpStatus.CONFLICT, request);
+    }
 }
