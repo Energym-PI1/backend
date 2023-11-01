@@ -62,6 +62,18 @@ public class UsersController {
         return ResponseEntity.ok(service.getUsers());
     }
 
+    @GetMapping(value = "/login")
+    public ResponseEntity<Users> login(@RequestBody Users user){
+        try{
+            Users found = service.login(user.getEmail(), user.getPassword());
+            log.info("Usuario found: Nombre - " + found.getName());
+            return new ResponseEntity<>(found, HttpStatus.FOUND);
+        }catch(Exception ex){
+            log.error("Usuario no encontrado");
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PutMapping(value = "/user/")
     public ResponseEntity<Users> updateUser(@RequestBody Users user){
         try{

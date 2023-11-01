@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 public interface UsersRepository extends CrudRepository<Users, Integer> {
     Users findUserByEmail(String email);
 
+    Users findUserByEmailAndPassword(String email, String password);
+
     @Modifying
     @Transactional
     @Query("update Users u SET u.password=:password WHERE u.id=:id")

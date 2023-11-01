@@ -61,6 +61,15 @@ public class UsersService {
         return (List<Users>) repository.findAll();
     }
 
+    public Users login(String email, String password) throws Exception {
+        password = encript(password);
+        Users user = repository.findUserByEmailAndPassword(email, password);
+        if (user == null){
+            throw new Exception("Usuario no encontrado");
+        }
+        return user;
+    }
+
     public Users updateUser(Users u){
         repository.updateUser(u.getId(), u.getName(), u.getEmail(), u.getTelephone(), u.getRole());
         return repository.findById(u.getId()).get();
