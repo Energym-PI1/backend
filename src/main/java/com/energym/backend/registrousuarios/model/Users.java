@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "usuario")
-public class Usuario {
+@Table(name = "users")
+public class Users {
 
     @Id
     @Column(name = "id")
@@ -14,13 +14,13 @@ public class Usuario {
     @Setter
     private Integer id;
 
-    @Column(name = "nombre")
+    @Column(name = "name")
     @Getter
     @Setter
-    private String nombre;
+    private String name;
 
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     @Getter
     @Setter
     private String email;
@@ -32,15 +32,15 @@ public class Usuario {
     private String password;
 
 
-    @Column(name = "telefono")
+    @Column(name = "telephone")
     @Getter
     @Setter
-    private String telefono;
+    private String telephone;
 
 
-    @JoinColumn(name = "rol")
+    @JoinColumn(name = "role")
     @ManyToOne
     @Getter
     @Setter
-    private Rol rol;
+    private Roles role;
 }

@@ -8,8 +8,8 @@ import java.util.Set;
 
 
 @Entity
-@Table(name = "rol")
-public class Rol {
+@Table(name = "roles")
+public class Roles {
 
     @Id
     @Column(name = "id")
@@ -17,22 +17,22 @@ public class Rol {
     @Setter
     private Integer id;
 
-    @Column(name = "nombre", nullable = false)
+    @Column(name = "name", nullable = false)
     @Getter
     @Setter
-    private String nombre;
+    private String name;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "rol")
-    private Set<Usuario> usuarios;
+    @JoinColumn(name = "role")
+    private Set<Users> users;
 
-    public Rol(Integer id, String nombre) {
+    public Roles(Integer id, String name) {
         this.id = id;
-        this.nombre = nombre;
+        this.name = name;
     }
 
-    public Rol() {
+    public Roles() {
         this.id = 0;
-        this.nombre = "";
+        this.name = "";
     }
 }
