@@ -2,6 +2,9 @@ package com.energym.backend.registrousuarios.controller;
 
 import com.energym.backend.registrousuarios.model.Roles;
 import com.energym.backend.registrousuarios.service.RolesService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,11 @@ public class RolesController {
     @Autowired
     public RolesService service;
 
+    @Operation(summary = "Busca un rol por su id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "El rol qu coincide con el parámetro de búsqueda"),
+            @ApiResponse(responseCode = "409", description = "Null cuando no se encuentra el rol"),
+    })
     @GetMapping("/role/id/")
     public ResponseEntity<Roles> findRoleById(@RequestParam Integer id){
         try {
@@ -30,6 +38,10 @@ public class RolesController {
         }
     }
 
+    @Operation(summary = "Lista con todos los roles almacenados en la base de datos")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista con todos los roles"),
+    })
     @GetMapping("/role/")
     public ResponseEntity<List<Roles>> getRoles(){
         return new ResponseEntity<>(service.getRoles(), HttpStatus.OK);
