@@ -89,7 +89,7 @@ public class UsersController {
             @ApiResponse(responseCode = "200", description = "El usuario que coincida con los criterios de búsqueda"),
             @ApiResponse(responseCode = "404", description = "Null cuando el usuario no se encuentra"),
     })
-    @GetMapping(value = "/login")
+    @PostMapping(value = "/login")
     public ResponseEntity<Users> login(@RequestBody Users user){
         try{
             Users found = service.login(user.getEmail(), user.getPassword());
