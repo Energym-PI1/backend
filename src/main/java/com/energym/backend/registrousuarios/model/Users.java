@@ -2,10 +2,12 @@ package com.energym.backend.registrousuarios.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "users")
+@NoArgsConstructor
 public class Users {
 
     @Id
@@ -43,4 +45,9 @@ public class Users {
     @Getter
     @Setter
     private Roles role;
+
+    public Users(String email, String password){
+        this.email = email;
+        this.password = password;
+    }
 }
