@@ -26,17 +26,27 @@ public class UsersController {
     @Operation(summary = "Agrega un nuevo registro en la tabla users")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "El usuario creado"),
-            @ApiResponse(responseCode = "406", description = "Null cuando se produce algún error")
+            @ApiResponse(responseCode = "409", description = "Null cuando el id ya existe"),
+            @ApiResponse(responseCode = "406", description = "Null cuando el email ya existe"),
+            @ApiResponse(responseCode = "400", description = "Null cuando se produce un error al crear el usuario")
     })
     @PostMapping(value = "/user")
     public ResponseEntity<Users> newUser(@RequestBody Users user){
         try {
+            Users found = service.findUserbyEmail(user.getEmail());
+            if (found != null) {
+                return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
+            }
+            Optional<Users> foundId = service.findUserById(user.getId());
+            if (foundId.isPresent()) {
+                return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+            }
             Users created = service.newUser(user);
             log.info("Usuario creado correctamente: Nombre - " + created.getName());
             return new ResponseEntity<>(created, HttpStatus.CREATED);
         } catch (Exception e) {
             log.error("No se pudo crear el usuario: Nombre - " + user.getName());
-            return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
