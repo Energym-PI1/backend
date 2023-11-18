@@ -25,7 +25,7 @@ public class ClassesController {
     @Autowired
     public ClassesService service;
 
-    @Operation(summary = "Agrega un nuevo registro en la tabla classes")
+    @Operation(summary = "Agrega un nuevo registro en la tabla classes. La fecha tiene formato yyyy-MM-dd y la hora HH:mm:ss")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "La clase creada"),
     })
@@ -51,7 +51,7 @@ public class ClassesController {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
-    @Operation(summary = "Busca en la tabla classes todas las clases que coincida con la fecha pasada como parámetro")
+    @Operation(summary = "Busca en la tabla classes todas las clases que coincida con la fecha pasada como parámetro. La fecha tiene formato yyyy-MM-dd")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Las clases que coincidan con el criterio de búsqueda")
     })
@@ -60,7 +60,7 @@ public class ClassesController {
         return new ResponseEntity<>(service.findClassByDate(date), HttpStatus.OK);
     }
 
-    @Operation(summary = "Busca en la tabla classes todas las clases que coincida con la fecha y hora pasados como parámetro")
+    @Operation(summary = "Busca en la tabla classes todas las clases que coincida con la fecha y hora pasados como parámetro. La fecha tiene formato yyyy-MM-dd y la hora HH:mm:ss")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Las clases que coincidan con los criterios de búsqueda")
     })
@@ -78,7 +78,7 @@ public class ClassesController {
         return new ResponseEntity<>(service.getClasses(), HttpStatus.OK);
     }
 
-    @Operation(summary = "Actualiza la información de una clase")
+    @Operation(summary = "Actualiza la información de una clase. La fecha tiene formato yyyy-MM-dd y la hora HH:mm:ss")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "La clase actualizada"),
             @ApiResponse(responseCode = "409", description = "Null cuando no se actualiza la clase"),

@@ -56,7 +56,7 @@ public class BookingsController {
         return new ResponseEntity<>(service.findClassesByUser(user), HttpStatus.OK);
     }
 
-    @Operation(summary = "Busca las clases a las que un usuario está apuntado buscando por el id del usuario y un rango de fechas")
+    @Operation(summary = "Busca las clases a las que un usuario está apuntado buscando por el id del usuario y un rango de fechas. Las fechas tienen formato yyyy-MM-dd")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Las clases a las que el usuario está apuntado")
     })
@@ -65,7 +65,7 @@ public class BookingsController {
         return new ResponseEntity<>(service.findClassesByUserBetween(user, initialDate, finalDate), HttpStatus.OK);
     }
 
-    @Operation(summary = "Busca las clases que se impartirán en un rango de fechas")
+    @Operation(summary = "Busca las clases que se impartirán en un rango de fechas. Las fechas tienen formato yyyy-MM-dd")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Las clases que se impartirán en el rango de fechas")
     })
