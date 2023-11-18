@@ -35,10 +35,12 @@ public class UsersController {
         try {
             Users found = service.findUserbyEmail(user.getEmail());
             if (found != null) {
+                log.info("El email ya existe: " + user.getEmail());
                 return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
             }
             Optional<Users> foundId = service.findUserById(user.getId());
             if (foundId.isPresent()) {
+                log.info("El id ya existe: " + user.getId());
                 return new ResponseEntity<>(null, HttpStatus.CONFLICT);
             }
             Users created = service.newUser(user);
@@ -91,6 +93,7 @@ public class UsersController {
     })
     @GetMapping("/user/")
     public ResponseEntity<List<Users>> getUsers(){
+        log.info("Lista de usuarios");
         return ResponseEntity.ok(service.getUsers());
     }
 

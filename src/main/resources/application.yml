@@ -9,3 +9,6 @@ spring:
     active: dev
   application:
     name: backend
+  jackson:
+    time-zone: America/Bogota
+    date-format: yyyy-MM-dd HH:mm:ss

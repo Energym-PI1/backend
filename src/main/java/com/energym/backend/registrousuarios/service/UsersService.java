@@ -1,29 +1,19 @@
 package com.energym.backend.registrousuarios.service;
 
-import com.energym.backend.registrousuarios.controller.UsersController;
 import com.energym.backend.registrousuarios.model.Users;
 import com.energym.backend.registrousuarios.repository.UsersRepository;
 import com.energym.backend.util.exception.EncryptException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
-import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
 import java.util.Base64;
 
 @Service
 public class UsersService {
-
-    private final Logger log = LoggerFactory.getLogger(UsersController.class);
 
     private static String ENCRYPT_KEY = "energym-energym-";
 
@@ -49,17 +39,13 @@ public class UsersService {
         try{
             user.setPassword(encrypt(user.getPassword()));
         }catch (Exception ex){
-            log.error(ex.getMessage());
             return null;
         }
         return repository.save(user);
     }
 
-    public Users findUserbyEmail(String email) /*throws Exception//*/{
+    public Users findUserbyEmail(String email) {
         Users found = repository.findUserByEmail(email);
-        /*if(found == null){
-            throw new Exception("Usuario no encontrado");
-        }//*/
         return found;
     }
 
@@ -89,7 +75,6 @@ public class UsersService {
         try{
             password = encrypt(password);
         }catch (Exception ex){
-            log.error(ex.getMessage());
             return null;
         }
         repository.updatePassword(id, password);

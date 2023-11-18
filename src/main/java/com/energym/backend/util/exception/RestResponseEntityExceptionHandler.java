@@ -1,5 +1,6 @@
 package com.energym.backend.util.exception;
 
+import org.hibernate.id.IdentifierGenerationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,12 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     @ExceptionHandler(value = EncryptException.class)
     public ResponseEntity<Object> handlerEncryptException(RuntimeException ex, WebRequest request){
         String body = "Error en la encriptación del password";
+        return handleExceptionInternal(ex, body, new HttpHeaders(), HttpStatus.CONFLICT, request);
+    }
+
+    @ExceptionHandler(value = IllegalArgumentException.class)
+    public ResponseEntity<Object> handlerIllegalArgumentException(RuntimeException ex, WebRequest request){
+        String body = "Verifique que todos los datos necesarios del objeto estén completos";
         return handleExceptionInternal(ex, body, new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
 }

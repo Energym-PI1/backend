@@ -1,9 +1,12 @@
 package com.energym.backend.registrousuarios.model;
 
+import com.energym.backend.reservas.model.Classes;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -46,8 +49,19 @@ public class Users {
     @Setter
     private Roles role;
 
+    @JoinTable(name = "bookings",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "classes_id")
+    )
+    @ManyToMany
+    private Set<Classes> bookings;
+
     public Users(String email, String password){
         this.email = email;
         this.password = password;
+    }
+
+    public Users(Integer id) {
+        this.id = id;
     }
 }
