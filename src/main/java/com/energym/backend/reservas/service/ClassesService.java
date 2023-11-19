@@ -38,8 +38,9 @@ public class ClassesService {
         return (List<Classes>) repository.findAll();
     }
 
-    public Classes updateClass(Classes classes){
-        repository.updateClass(classes.getDate(), classes.getHour(), classes.getOwner().getId(), classes.getId());
-        return repository.findById(classes.getId()).get();
+    public Optional<Classes> updateClass(Classes classes){
+        //repository.updateClass(classes.getDate(), classes.getHour(), classes.getCode(), classes.getOwner().getId(), classes.getId());
+        repository.updateClass(classes.getDate(), classes.getHour(), classes.getCode(), classes.getName(), classes.getDescription(), classes.getDuration(), classes.getImage(), classes.getPrice(), classes.getOwner().getId(), classes.getId());
+        return repository.findById(classes.getId());
     }
 }

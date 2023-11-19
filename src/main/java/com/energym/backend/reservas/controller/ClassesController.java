@@ -86,9 +86,13 @@ public class ClassesController {
     @PutMapping(value = "/classes")
     public ResponseEntity<Classes> updateClass(@RequestBody Classes classes){
         try{
-            Classes updated = service.updateClass(classes);
-            log.info("Rest request actualizar una clase: " + updated.getId());
-            return new ResponseEntity<>(updated, HttpStatus.OK);
+            Optional<Classes> updated = service.updateClass(classes);
+            if(updated.isPresent()){
+                log.info("Rest request actualizar una clase: " + updated.get().getId());
+                return new ResponseEntity<>(updated.get(), HttpStatus.OK);
+            }
+            log.info("Rest bad request actualizar una clase " + classes.getId());
+            return new ResponseEntity<>(null, HttpStatus.CONFLICT);
         }catch(Exception ex){
             log.info("Rest bad request actualizar una clase " + classes.getId());
             return new ResponseEntity<>(null, HttpStatus.CONFLICT);

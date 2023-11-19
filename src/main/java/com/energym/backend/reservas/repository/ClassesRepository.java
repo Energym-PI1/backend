@@ -19,6 +19,6 @@ public interface ClassesRepository  extends CrudRepository<Classes, Long> {
 
     @Modifying
     @Transactional
-    @Query("update Classes u set u.date=:date, u.hour=:hour, u.owner.id=:professional where u.id=:id")
-    void updateClass(@Param("date") LocalDate date, @Param("hour") LocalTime hour, @Param("professional") Integer professional, @Param("id") Long id);
+    @Query("update Classes u set u.date=:date, u.hour=:hour, u.code=:code, u.name=:name, u.description=:description, u.duration=:duration, u.image=:image, u.price=:price, u.owner.id=:professional where u.id=:id")
+    void updateClass(@Param("date") LocalDate date, @Param("hour") LocalTime hour, @Param("code") String code, @Param("name") String name, @Param("description") String description, @Param("duration") Integer duration, @Param("image") String image, @Param("price") Double price, @Param("professional") Integer professional, @Param("id") Long id);
 }

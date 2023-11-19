@@ -34,6 +34,36 @@ public class Classes {
     @Setter
     private LocalTime hour;
 
+    @Column(name = "code")
+    @Getter
+    @Setter
+    private String code;
+
+    @Column(name = "name")
+    @Getter
+    @Setter
+    private String name;
+
+    @Column(name = "description")
+    @Getter
+    @Setter
+    private String description;
+
+    @Column(name = "price")
+    @Getter
+    @Setter
+    private Double price;
+
+    @Column(name = "duration")
+    @Getter
+    @Setter
+    private Integer duration;
+
+    @Column(name = "image")
+    @Getter
+    @Setter
+    private String image;
+
     @JoinColumn(name = "owner")
     @ManyToOne
     @Getter
@@ -47,10 +77,16 @@ public class Classes {
         this.id = id;
     }
 
-    public Classes(Long id, LocalDate date, LocalTime hour, Professionals owner) {
+    public Classes(Long id, LocalDate date, LocalTime hour, String code, String name, String description, Double price, Integer duration, String image, Professionals owner) {
         this.id = id;
         this.date = date;
         this.hour = hour;
+        this.code = code;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.duration = duration;
+        this.image = image;
         this.owner = owner;
     }
 }
