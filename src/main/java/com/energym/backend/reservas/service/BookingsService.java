@@ -2,7 +2,7 @@ package com.energym.backend.reservas.service;
 
 import com.energym.backend.registrousuarios.model.Users;
 import com.energym.backend.reservas.model.Bookings;
-import com.energym.backend.reservas.model.Classes;
+import com.energym.backend.reservas.model.Sessions;
 import com.energym.backend.reservas.repository.BookingsRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,23 +19,23 @@ public class BookingsService {
     }
 
     public Bookings newBooking(Bookings booking){
-        repository.newBooking(booking.getUser_id().getId(), booking.getClasses_id().getId());
-        return repository.findBooking(booking.getUser_id().getId(), booking.getClasses_id().getId());
+        repository.newBooking(booking.getUser_id().getId(), booking.getSession_id().getId());
+        return repository.findBooking(booking.getUser_id().getId(), booking.getSession_id().getId());
     }
 
-    public List<Users> findUsersByClass(Long classes){
-        return repository.findUsersByClass(classes);
+    public List<Users> findUsersBySession(Long session){
+        return repository.findUsersByClass(session);
     }
 
-    public List<Classes> findClassesByUser(Integer user){
-        return repository.findClassesByUser(user);
+    public List<Sessions> findSessionsByUser(Integer user){
+        return repository.findSessionsByUser(user);
     }
 
-    public List<Classes> findClassesByUserBetween(Integer user, LocalDate initialDate, LocalDate finalDate){
-        return repository.findClassesByUserBetween(user, initialDate, finalDate);
+    public List<Sessions> findSessionsByUserBetween(Integer user, LocalDate initialDate, LocalDate finalDate){
+        return repository.findSessionsByUserBetween(user, initialDate, finalDate);
     }
 
-    public List<Classes> findClassesBetween(LocalDate initialDate, LocalDate finalDate){
-        return repository.findClassesBetween(initialDate, finalDate);
+    public List<Sessions> findSessionsBetween(LocalDate initialDate, LocalDate finalDate){
+        return repository.findSessionsBetween(initialDate, finalDate);
     }
 }

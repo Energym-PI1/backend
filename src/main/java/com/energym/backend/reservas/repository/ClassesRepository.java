@@ -7,18 +7,17 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
-public interface ClassesRepository  extends CrudRepository<Classes, Long> {
+public interface ClassesRepository  extends CrudRepository<Classes, String> {
 
-    List<Classes> findClassesByDate(LocalDate date);
+    Optional<Classes> findById(String id);
 
-    List<Classes> findClassesByDateAndHour(LocalDate date, LocalTime hour);
+    List<Classes> findClassesByNameContainsIgnoreCase(String name);
 
     @Modifying
     @Transactional
-    @Query("update Classes u set u.date=:date, u.hour=:hour, u.code=:code, u.name=:name, u.description=:description, u.duration=:duration, u.image=:image, u.price=:price, u.owner.id=:professional where u.id=:id")
-    void updateClass(@Param("date") LocalDate date, @Param("hour") LocalTime hour, @Param("code") String code, @Param("name") String name, @Param("description") String description, @Param("duration") Integer duration, @Param("image") String image, @Param("price") Double price, @Param("professional") Integer professional, @Param("id") Long id);
+    @Query("update Classes u set u.name=:name, u.description=:description, u.duration=:duration, u.image=:image, u.price=:price, u.rating=:rating where u.code=:code")
+    void updateClass(@Param("code") String code, @Param("name") String name, @Param("description") String description, @Param("duration") Integer duration, @Param("image") String image, @Param("price") Double price, @Param("rating") Float rating);
 }

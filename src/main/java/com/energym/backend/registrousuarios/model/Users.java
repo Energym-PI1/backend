@@ -1,6 +1,6 @@
 package com.energym.backend.registrousuarios.model;
 
-import com.energym.backend.reservas.model.Classes;
+import com.energym.backend.reservas.model.Sessions;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -51,10 +51,10 @@ public class Users {
 
     @JoinTable(name = "bookings",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "classes_id")
+            inverseJoinColumns = @JoinColumn(name = "session_id")
     )
     @ManyToMany
-    private Set<Classes> bookings;
+    private Set<Sessions> bookings;
 
     public Users(String email, String password){
         this.email = email;

@@ -20,7 +20,7 @@ public class BookingsPK implements Serializable {
 
     @Getter
     @Setter
-    private Classes classes_id;
+    private Sessions session_id;
 
     @Override
     public boolean equals(Object o) {
@@ -28,11 +28,11 @@ public class BookingsPK implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         BookingsPK bookingPK = (BookingsPK) o;
         return user_id.equals(bookingPK.getUser_id()) &&
-                classes_id.equals(bookingPK.getClasses_id());
+                session_id.equals(bookingPK.getSession_id());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(user_id, classes_id);
+        return Objects.hash(user_id, session_id);
     }
 }

@@ -35,5 +35,9 @@ public class Professionals {
 
     @JoinColumn(name = "owner")
     @OneToMany(cascade = CascadeType.ALL)
-    private Set<Classes> classes;
+    private Set<Sessions> sessions;
+
+    public Professionals(Integer id) {
+        this.id = id;
+    }
 }

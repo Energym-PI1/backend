@@ -18,29 +18,29 @@ public class ClassesService {
         this.repository = repository;
     }
 
+    public List<Classes> newClasses(List<Classes> classes){
+        return (List<Classes>) repository.saveAll(classes);
+    }
+
     public Classes newClass(Classes classes){
         return repository.save(classes);
     }
 
-    public Optional<Classes> findClassById(Long id){
+    public Optional<Classes> findClassById(String id){
         return repository.findById(id);
     }
 
-    public List<Classes> findClassByDate(LocalDate date){
-        return repository.findClassesByDate(date);
+    public List<Classes> findClassByName(String name){
+        return repository.findClassesByNameContainsIgnoreCase(name);
     }
 
-    public List<Classes> findClassByDateAndHour(LocalDate date, LocalTime hour){
-        return repository.findClassesByDateAndHour(date, hour);
-    }
 
     public List<Classes> getClasses(){
         return (List<Classes>) repository.findAll();
     }
 
     public Optional<Classes> updateClass(Classes classes){
-        //repository.updateClass(classes.getDate(), classes.getHour(), classes.getCode(), classes.getOwner().getId(), classes.getId());
-        repository.updateClass(classes.getDate(), classes.getHour(), classes.getCode(), classes.getName(), classes.getDescription(), classes.getDuration(), classes.getImage(), classes.getPrice(), classes.getOwner().getId(), classes.getId());
-        return repository.findById(classes.getId());
+        repository.updateClass(classes.getCode(), classes.getName(), classes.getDescription(), classes.getDuration(), classes.getImage(), classes.getPrice(), classes.getRating());
+        return repository.findById(classes.getCode());
     }
 }

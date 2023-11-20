@@ -20,9 +20,9 @@ public class Bookings {
     private Users user_id;
 
     @Id
-    @JoinColumn(name = "classes_id")
+    @JoinColumn(name = "session_id")
     @ManyToOne
     @Getter
     @Setter
-    private Classes classes_id;
+    private Sessions session_id;
 }
