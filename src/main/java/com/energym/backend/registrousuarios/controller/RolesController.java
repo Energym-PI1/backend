@@ -11,15 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class RolesController {
-    private final Logger log = LoggerFactory.getLogger(UsersController.class);
+    private final Logger log = LoggerFactory.getLogger(RolesController.class);
 
     @Autowired
     public RolesService service;
@@ -32,7 +32,13 @@ public class RolesController {
     @GetMapping("/role/id/")
     public ResponseEntity<Roles> findRoleById(@RequestParam Integer id){
         try {
-            return new ResponseEntity<>(service.findRoleById(id).get(), HttpStatus.OK);
+            Optional<Roles> found = service.findRoleById(id);
+            if (!found.isPresent()) {
+                log.info("No se encontró el rol con id: " + id);
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+            log.info("Rol encontrado: " + found.get().getName());
+            return new ResponseEntity<>(found.get(), HttpStatus.OK);
         }catch (Exception ex){
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }

@@ -1,7 +1,9 @@
 package com.energym.backend.registrousuarios.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Set;
@@ -9,6 +11,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "roles")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Roles {
 
     @Id
@@ -31,8 +35,7 @@ public class Roles {
         this.name = name;
     }
 
-    public Roles() {
-        this.id = 0;
-        this.name = "";
+    public Roles(Integer id) {
+        this.id = id;
     }
 }
