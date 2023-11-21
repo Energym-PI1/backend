@@ -43,7 +43,7 @@ public class ClassesController {
 
     @Operation(summary = "Busca en la tabla classes la clase que coincida con el código pasado como parámetro")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "302", description = "La clase que coincida con el criterio de búsqueda"),
+            @ApiResponse(responseCode = "202", description = "La clase que coincida con el criterio de búsqueda"),
             @ApiResponse(responseCode = "404", description = "Null cuando la clase no se encuentra")
     })
     @GetMapping(value = "/classes/code/")
@@ -51,7 +51,7 @@ public class ClassesController {
         Optional<Classes> found = service.findClassById(code);
         if (found.isPresent()) {
             log.info("Clase encontrada: Name - " + found.get().getName());
-            return new ResponseEntity<>(found.get(), HttpStatus.FOUND);
+            return new ResponseEntity<>(found.get(), HttpStatus.ACCEPTED);
         }
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
